@@ -4,7 +4,7 @@ import click
 
 
 def gen_md5(filepath):
-   return subprocess.check_output(["openssl", "md5", filepath]).strip().split(" ")[1]
+    return subprocess.check_output(["openssl", "md5", filepath]).strip().split(" ")[1]
 
 
 @click.command()
