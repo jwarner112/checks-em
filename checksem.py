@@ -4,7 +4,7 @@ import click
 
 
 def gen_md5(filepath):
-   return subprocess.check_output(["md5", filepath]).strip().split(" ")[3]
+   return subprocess.check_output(["openssl", "md5", filepath]).strip().split(" ")[1]
 
 
 @click.command()
@@ -29,7 +29,7 @@ def main(algorithm, binary, checksum):
         gen_checksum = gen_md5(binary)
 
     with open(checksum, 'r') as fd:
-        src_checksum = fd.read().split(" ")[0]
+        src_checksum = fd.read().strip().split(" ")[1]
 
     print "Binary:   {b}".format(b=binary)
     print "Checksums:"
