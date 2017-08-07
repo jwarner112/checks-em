@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name='checksem',
-    version='0.1.3',
+    version='0.1.8',
     py_modules=[
         'checksem',
     ],

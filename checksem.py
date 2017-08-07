@@ -1,10 +1,12 @@
-import subprocess
+import hashlib
+import re
 
 import click
 
 
 def gen_md5(filepath):
-    return subprocess.check_output(["openssl", "md5", filepath]).strip().split(" ")[1]
+    with open(filepath, 'rb') as fd:
+        return hashlib.md5(fd.read()).hexdigest()
 
 
 @click.command()
@@ -20,16 +22,15 @@ def main(algorithm, binary, checksum):
         CHECKSUM        The file wherein the source checksum is contained
     """
 
-    if algorithm == "sha1":
-        raise NotImplementedError("To be added in version 0.2")
-    elif algorithm == "sha256":
-        raise NotImplementedError("To be added in version 0.3")
-    else:
-        print "Generating checksum using md5..."
-        gen_checksum = gen_md5(binary)
-
     with open(checksum, 'r') as fd:
-        src_checksum = fd.read().strip().split(" ")[1]
+        contents = fd.read()
+        if algorithm == "sha1":
+            raise NotImplementedError("To be added in version 0.2")
+        elif algorithm == "sha256":
+            raise NotImplementedError("To be added in version 0.3")
+        else:
+            gen_checksum = gen_md5(binary)
+            src_checksum = re.search(r"[0-9a-fA-F]{32}", contents).group(0)
 
     print "Binary:   {b}".format(b=binary)
     print "Checksums:"
