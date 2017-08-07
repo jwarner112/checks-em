@@ -9,6 +9,11 @@ def gen_md5(filepath):
         return hashlib.md5(fd.read()).hexdigest()
 
 
+def gen_sha1(filepath):
+    with open(filepath, 'rb') as fd:
+        return hashlib.sha1(fd.read()).hexdigest()
+
+
 @click.command()
 @click.argument("algorithm", type=click.Choice(["md5", "sha1", "sha256"]))
 @click.argument("binary", type=click.Path(exists=True))
@@ -25,7 +30,8 @@ def main(algorithm, binary, checksum):
     with open(checksum, 'r') as fd:
         contents = fd.read()
         if algorithm == "sha1":
-            raise NotImplementedError("To be added in version 0.2")
+            gen_checksum = gen_sha1(binary)
+            src_checksum = re.search(r"[0-9a-fA-F]{40}", contents).group(0)
         elif algorithm == "sha256":
             raise NotImplementedError("To be added in version 0.3")
         else:
