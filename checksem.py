@@ -4,14 +4,19 @@ import re
 import click
 
 
-def gen_md5(filepath):
+def get_md5(filepath):
     with open(filepath, 'rb') as fd:
         return hashlib.md5(fd.read()).hexdigest()
 
 
-def gen_sha1(filepath):
+def get_sha1(filepath):
     with open(filepath, 'rb') as fd:
         return hashlib.sha1(fd.read()).hexdigest()
+
+
+def get_sha256(filepath):
+    with open(filepath, 'rb') as fd:
+        return hashlib.sha256(fd.read()).hexdigest()
 
 
 @click.command()
@@ -30,12 +35,13 @@ def main(algorithm, binary, checksum):
     with open(checksum, 'r') as fd:
         contents = fd.read()
         if algorithm == "sha1":
-            gen_checksum = gen_sha1(binary)
+            gen_checksum = get_sha1(binary)
             src_checksum = re.search(r"[0-9a-fA-F]{40}", contents).group(0)
         elif algorithm == "sha256":
-            raise NotImplementedError("To be added in version 0.3")
+            gen_checksum = get_sha256(binary)
+            src_checksum = re.search(r"[0-9a-fA-F]{64}", contents).group(0)
         else:
-            gen_checksum = gen_md5(binary)
+            gen_checksum = get_md5(binary)
             src_checksum = re.search(r"[0-9a-fA-F]{32}", contents).group(0)
 
     print "Binary:   {b}".format(b=binary)
