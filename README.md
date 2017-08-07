@@ -25,22 +25,32 @@ remote: Total 9 (delta 1), reused 4 (delta 0), pack-reused 0
 Receiving objects: 100% (9/9), 13.84 KiB | 0 bytes/s, done.
 Resolving deltas: 100% (1/1), done.
 /path/to/repos $ cd checksem
-/path/to/repos/checksem $ `# If you want a non-global install, see pip's advanced options`
-/path/to/repos/checksem $ pip install .
-Processing /path/to/repos/checksem
-Requirement already satisfied: click in /usr/local/lib/python2.7/site-packages (from checksem==0.1.2)
+/path/to/repos/checksem $ `# If you want a non-global install, use this script as a base but don't use it.`
+/path/to/repos/checksem $ sudo ./install.sh
+[sudo] password for user: 
+========================================
+Installing...
+The directory '/home/jwarner/.cache/pip/http' or its parent directory is not owned by the current user and the cache has been disabled. Please check the permissions and owner of that directory. If executing pip with sudo, you may want sudo's -H flag.
+The directory '/home/jwarner/.cache/pip' or its parent directory is not owned by the current user and caching wheels has been disabled. check the permissions and owner of that directory. If executing pip with sudo, you may want sudo's -H flag.
+Processing /home/jwarner/repos/checksem
+/usr/local/lib/python2.7/dist-packages/pip/_vendor/requests/packages/urllib3/util/ssl_.py:318: SNIMissingWarning: An HTTPS request has been made, but the SNI (Subject Name Indication) extension to TLS is not available on this platform. This may cause the server to present an incorrect TLS certificate, which can cause validation failures. You can upgrade to a newer version of Python to solve this. For more information, see https://urllib3.readthedocs.io/en/latest/security.html#snimissingwarning.
+  SNIMissingWarning
+/usr/local/lib/python2.7/dist-packages/pip/_vendor/requests/packages/urllib3/util/ssl_.py:122: InsecurePlatformWarning: A true SSLContext object is not available. This prevents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to solve this. For more information, see https://urllib3.readthedocs.io/en/latest/security.html#insecureplatformwarning.
+  InsecurePlatformWarning
+Requirement already up-to-date: click in /usr/local/lib/python2.7/dist-packages (from checksem==0.3.2)
 Installing collected packages: checksem
+  Found existing installation: checksem 0.3.2
+    Uninstalling checksem-0.3.2:
+      Successfully uninstalled checksem-0.3.2
   Running setup.py install for checksem ... done
-Successfully installed checksem-0.1.2
-/path/to/repos/checksem $ `# Verify proper installation...`
-/path/to/repos/checksem $ echo "Hello, world" > test.txt
-/path/to/repos/checksem $ openssl md5 test.txt > test.txt.md5
-/path/to/repos/checksem $ checksem md5 test.txt test.txt.md5
-Generating checksum using md5...
+Successfully installed checksem-0.3.2
+Verifying...
 Binary:   test.txt
 Checksums:
     Generated: a7966bf58e23583c9a5a4059383ff850
     Provided:  a7966bf58e23583c9a5a4059383ff850
 OK!
+If above reads 'MISMATCH!' instead of 'OK!', an error has occurred.
+========================================
 /path/to/repos/checksem $
 ```
