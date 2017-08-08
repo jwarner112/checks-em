@@ -1,7 +1,7 @@
 #! /bin/bash
 
 if [[ "$EUID" != "0" ]]; then
-    echo "This script requires superuser privelege. Please re-run as superuser."
+    echo "This script requires superuser privilege. Please re-run as superuser."
     exit;
 fi
 
