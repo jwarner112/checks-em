@@ -4,7 +4,7 @@ from setuptools import setup
 setup(
     name='checksem',
     version='0.3.2',
-    python_requires='>= 2.0, < 3.0',
+    python_requires='>= 2.7, < 3.0',
     py_modules=[
         'checksem',
     ],
